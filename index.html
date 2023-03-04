@@ -151,25 +151,25 @@ function findSatallite() {
       lat = data.latitude.toFixed(2);
       long = data.longitude.toFixed(2);
       // converting data to seconds then to UTC Format
-      const timeStamp = new Date(data.timeStamp * 1000).toUTCString();
+      const timestamp = new Date(data.timestamp * 1000).toUTCString();
       const speed = data.velocity.toFixed(2);
       const altitude = data.altitude.toFixed(2);
       const visibility = data.visibility;
       // call updateSatellite function to update everything
-      updateSatellite(lat, long, timeStamp, speed, altitude, visibility);
+      updateSatellite(lat, long, timestamp, speed, altitude, visibility);
     })
     .catch(e => console.log(e));
 }
 
 // update the Satallite's location
-function updateSatellite(lat, long, timeStamp, speed, altitude, visibility) {
+function updateSatellite(lat, long, timestamp, speed, altitude, visibility) {
   marker.setLatLng([lat, long]);
   //updates the map
   map.setView([lat, long]);
   //updates the elements
   latitudeText.innerText = lat;
   longitudeText.innerText = long;
-  timeText.innerText = timeStamp;
+  timeText.innerText = timestamp;
   speedText.innerText = `${speed} km/hr`;
   altitudeText.innerText = `${altitude} km`
   visibilityText.innerText = visibility;
