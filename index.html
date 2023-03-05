@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <title>ISS Tracker</title>
-    <!-- <link rel="stylesheet" href="style.css"> -->
-    <!-- CSS for our Map (Mandatory) -->
-    <style>* {
+  <title>ISS Tracker</title>
+  <!-- <link rel="stylesheet" href="style.css"> -->
+  <!-- CSS for our Map (Mandatory) -->
+  <style>
+    * {
       padding: 0;
       margin: 0;
       box-sizing: border-box;
     }
+
     /* body */
     body {
       width: 100vw;
@@ -22,21 +25,24 @@
       font-size: 0.8rem;
       text-align: center;
     }
+
     /* h1 */
     h1 {
       margin-bottom: 30px;
       font-size: 3rem;
       color: #fff;
     }
+
     /* #map */
     /* this is mandatory */
     #map-div {
       width: 800px;
       height: 350px;
-      box-shadow: 7px -2px 8px -1px rgba(0,0,0,0.7);
+      box-shadow: 7px -2px 8px -1px rgba(0, 0, 0, 0.7);
       border-top-right-radius: 3px;
       border-top-left-radius: 3px;
     }
+
     /* #details */
     #details {
       background-color: #2B32B2;
@@ -45,103 +51,111 @@
       display: flex;
       width: 800px;
       max-width: 800px;
-      box-shadow: 7px -2px 8px -1px rgba(0,0,0,0.7);
+      box-shadow: 7px -2px 8px -1px rgba(0, 0, 0, 0.7);
       border-bottom-right-radius: 3px;
       border-bottom-left-radius: 3px;
     }
+
     /* all div inside #details */
     #details div {
       display: flex;
       flex-direction: column;
       flex-grow: 1;
     }
+
     /* all span */
     span {
       font-size: 1rem;
       margin-top: 10px;
-    }</style>
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin="" />
-  </head>
-  <body>
-    <div>
-        <h1>ISS Tracker</h1>
-  <!-- our Map goes here -->
-        <div id="map-div">
-  </div>
-  <!-- Details about ISS -->
-        <div id="details">
-          <!-- Time -->
-          <div>
-            Time:
-            <span class="time"></span>
-          </div>
-          <!-- Latitude -->
-          <div>
-            Latitude:
-            <span class="latitude"></span>
-          </div>
-          <!-- Longitude -->
-          <div>
-            Longitude:
-            <span class="longitude"></span>
-          </div>
-          <!-- Speed -->
-          <div>
-            Speed:
-            <span class="speed"></span>
-          </div>
-          <!-- Altitude -->
-          <div>
-            Altitude:
-            <span class="altitude"></span>
-          </div>
-          <!-- Visibility -->
-          <div>
-            Visibility:
-            <span class="visibility"></span>
-          </div>
-        </div>
+    }
+  </style>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin="" />
+</head>
+
+<body>
+  <div>
+    <h1>ISS Tracker</h1>
+    <!-- our Map goes here -->
+    <div id="map-div">
+    </div>
+    <!-- Details about ISS -->
+    <div id="details">
+      <!-- Time -->
+      <div>
+        Time:
+        <span class="time"></span>
       </div>
-<!-- Javascript for our Map  -->
-    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
-    <!-- <script src="script.js" type="text/javascript"></script> -->
-    <script>
-      let latitudeText = document.querySelector('.latitude');
-let longitudeText = document.querySelector('.longitude');
-let timeText = document.querySelector('.time');
-let speedText = document.querySelector('.speed');
-let altitudeText = document.querySelector('.altitude');
-let visibilityText = document.querySelector('.visibility');
+      <!-- Latitude -->
+      <div>
+        Latitude:
+        <span class="latitude"></span>
+      </div>
+      <!-- Longitude -->
+      <div>
+        Longitude:
+        <span class="longitude"></span>
+      </div>
+      <!-- Speed -->
+      <div>
+        Speed:
+        <span class="speed"></span>
+      </div>
+      <!-- Altitude -->
+      <div>
+        Altitude:
+        <span class="altitude"></span>
+      </div>
+      <!-- Visibility -->
+      <div>
+        Visibility:
+        <span class="visibility"></span>
+      </div>
+    </div>
+  </div>
+  <!-- Javascript for our Map  -->
+  <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+  <!-- <script src="script.js" type="text/javascript"></script> -->
+  <script>
+    let latitudeText = document.querySelector('.latitude');
+    let longitudeText = document.querySelector('.longitude');
+    let timeText = document.querySelector('.time');
+    let speedText = document.querySelector('.speed');
+    let altitudeText = document.querySelector('.altitude');
+    let visibilityText = document.querySelector('.visibility');
 
-let lat = 51.505;
-let long = -0.09;
-let zoomlevel = 8;
-// drawing the map interface on #map-div
-const map = L.map('map-div').setView([lat, long], zoomlevel);
+    let lat = 51.505;
+    let long = -0.09;
+    let zoomlevel = 8;
+    // drawing the map interface on #map-div
+    const map = L.map('map-div').setView([lat, long], zoomlevel);
 
 
-// add map tiles from Mapbox' Static tiles API
-L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
-  attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-  maxZoom: 18,
-  id: 'mapbox/streets-v11',
-  tileSize: 512,
-  zoomOffset: -1,
-  accessToken: 'pk.eyJ1IjoiamF3YWQtMjAwMi0iLCJhIjoiY2xldWJkbGtjMWlpdDN6cTZmYWdoaTFubyJ9.stNtIDev_CWr5Sb8rK6V-A'
-}).addTo(map);
+    // add map tiles from Mapbox' Static tiles API
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+      attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      maxZoom: 18,
+      id: 'mapbox/streets-v11',
+      tileSize: 512,
+      zoomOffset: -1,
+      accessToken: 'pk.eyJ1IjoiamF3YWQtMjAwMi0iLCJhIjoiY2xldWJkbGtjMWlpdDN6cTZmYWdoaTFubyJ9.stNtIDev_CWr5Sb8rK6V-A'
+    }).addTo(map);
 
-//sett Satellite.png as icon to track on map
-const icon = L.icon({
-  iconUrl: './img/Satellite.png',
-  iconSize: [90, 45],
-  iconAnchor: [25, 94],
-  popupAnchor: [20, -86]
-});
+    //sett Satellite.png as icon to track on map
+    const icon = L.icon({
+      iconUrl: './img/Satellite.png',
+      iconSize: [90, 45],
+      iconAnchor: [25, 94],
+      popupAnchor: [20, -86]
+    });
 
-// adding the marker to the map
-const marker = L.marker([lat, long], {
-  icon: icon
-}).addTo(map);
+    // adding the marker to the map
+    const marker = L.marker([lat, long], {
+      icon: icon
+    }).addTo(map);
 
 // find the satellite
 function findSatallite() {
@@ -151,34 +165,35 @@ function findSatallite() {
       lat = data.latitude.toFixed(2);
       long = data.longitude.toFixed(2);
       // converting data to seconds then to UTC Format
-      const timestamp = new Date(data.timestamp * 1000).toUTCString();
+      const timeStamp = new Date(data.timeStamp * 1000).toUTCString();
       const speed = data.velocity.toFixed(2);
       const altitude = data.altitude.toFixed(2);
       const visibility = data.visibility;
       // call updateSatellite function to update everything
-      updateSatellite(lat, long, timestamp, speed, altitude, visibility);
+      updateSatellite(lat, long, timeStamp, speed, altitude, visibility);
     })
     .catch(e => console.log(e));
 }
 
 // update the Satallite's location
-function updateSatellite(lat, long, timestamp, speed, altitude, visibility) {
+function updateSatellite(lat, long, timeStamp, speed, altitude, visibility) {
   marker.setLatLng([lat, long]);
   //updates the map
   map.setView([lat, long]);
   //updates the elements
   latitudeText.innerText = lat;
   longitudeText.innerText = long;
-  timeText.innerText = timestamp;
+  timeText.innerText = timeStamp;
   speedText.innerText = `${speed} km/hr`;
   altitudeText.innerText = `${altitude} km`
   visibilityText.innerText = visibility;
 }
 
-findSatallite();
+    findSatallite();
 
-//move the Satallite every 2 seconds
-setInterval(findSatallite, 2000);
-    </script>
-  </body>
+    //move the Satallite every 2 seconds
+    setInterval(findSatallite, 2000);
+  </script>
+</body>
+
 </html>
